@@ -1,0 +1,28 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+<h1>Pickem! A Quaig Production</h1>
+<a href="{% url Pickem.views.index %}">Home</a>
+    {% if user.is_authenticated %}
+        <a href="{% url django.contrib.auth.views.logout %}">Logout {{ user.username }}</a>
+        <a href="{% url Pickem.views.profile user.username %}">My Profile</a>
+    {% else %}
+        <a href="{% url django.contrib.auth.views.login %}">Login</a>
+        <a href="{% url Pickem.views.register %}">Register</a>
+    {% endif %}
+        <a href="{% url Pickem.views.live %}">Live Scores</a>
+        <a href="{% url Pickem.views.allteams %}">All Teams</a>
+<p>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% block content %}{% endblock %}
+</body>
+</html>

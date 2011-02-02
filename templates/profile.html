@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}User Info{% endblock %}
+{% block content %}
+{% if p %}
+<h2>{{u}}</h2>
+{{ p.w}} / {{p.l}}<p>
+{% else %}
+User not found
+{% endif %}
+{% endblock %}

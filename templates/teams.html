@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block title %}Team Listing{% endblock %}
+{% block content %}
+<br>
+{% for i in all %}
+    <a href="{% url Pickem.views.teamname i.name%}">{{ i.city }} {{ i.name }}</a><br>
+{% endfor %}
+{% endblock %}

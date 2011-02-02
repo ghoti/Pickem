@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Team Info{% endblock %}
+{% block content %}
+{% if team %}
+<h2>{{team.city}} {{team.name}}</h2>
+{{team.w}} / {{team.w}}
+{% endif %}
+    {% if error %}
+        <b>Team not found</b>
+    {% endif %}
+{% endblock %}

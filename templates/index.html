@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Pickem!{% endblock %}
+{% block content %}
+    {% if user.is_authenticated %}
+    Howdy, {{ user.username }}
+    {% else %}
+    Howdy, guest
+    {% endif %}
+{% endblock %}
