@@ -12,13 +12,13 @@
         Away Team
         <select name="team1">
             {% for i in teams %}
-                <option value="{{ i.id }}">{{ i.city }} {{ i.name }}</option>
+                <option value="{{ i.call }}">{{ i.city }} {{ i.name }}</option>
             {% endfor %}
         </select><br />
         Home Team
         <select name='team2'>
             {% for i in teams %}
-                <option value="{{ i.id }}">{{ i.city }} {{ i.name }}</option>
+                <option value="{{ i.call }}">{{ i.city }} {{ i.name }}</option>
             {% endfor %}
         </select><br />
        <input type="submit" value="Add This game" />

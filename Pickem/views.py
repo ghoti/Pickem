@@ -82,8 +82,8 @@ def add_game(request):
             messages.add_message(request, messages.INFO, 'Invalid Week Specified')
             return HttpResponseRedirect('/add_game')
 
-        team1 = int(request.POST['team1'])
-        team2 = int(request.POST['team2'])
+        team1 = request.POST['team1']
+        team2 = request.POST['team2']
 
         #we already added this game, abandon ship!
         if Game.objects.filter(week=week, home=team2, away=team1).exists():
@@ -103,3 +103,19 @@ def add_game(request):
     else:
         form = Form()
     return render_to_response('add_game.html', {'form':form, 'teams':t}, context_instance=RequestContext(request))
+
+def gamelist(request):
+    games = Game.objects.all()
+    return render_to_response('games.html', {'games':games}, context_instance=RequestContext(request))
+
+def game(request, gameno):
+    try:
+        g = Game.objects.get(id=gameno)
+    except Game.DoesNotExist:
+        g = None
+    if g:
+        away = Team.objects.get(call=g.away).name
+        home = Team.objects.get(call=g.home).name
+        return render_to_response('game.html', {'game':g, 'away':away, 'home':home}, context_instance=RequestContext(request))
+    else:
+        return render_to_response('game.html', {'game':None}, context_instance=RequestContext(request))

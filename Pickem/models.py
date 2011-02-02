@@ -54,8 +54,8 @@ class Team(models.Model):
 
 class Game(models.Model):
     week = models.IntegerField()
-    away = models.IntegerField()
-    home = models.IntegerField()
+    away = models.CharField(max_length=3)
+    home = models.CharField(max_length=3)
     homescore = models.IntegerField(blank=True, null=True)
     awayscore = models.IntegerField(blank=True, null=True)
 
