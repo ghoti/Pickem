@@ -64,5 +64,3 @@ class Pick(models.Model):
     week = models.IntegerField()
     game = models.IntegerField()
     pick = models.IntegerField()
-    tiebreak = models.IntegerField()
-

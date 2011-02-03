@@ -62,10 +62,6 @@ def profile(request, profile):
         p = Profile.objects.get(user=u.id)
     return render_to_response('profile.html', {'u':u.username, 'p':p}, context_instance=RequestContext(request))
 
-@decorators.login_required
-def create_pick(request):
-    pass
-
 @decorators.permission_required(perm='Pick.add_game')
 def add_game(request):
     t = Team.objects.all()
@@ -116,6 +112,44 @@ def game(request, gameno):
     if g:
         away = Team.objects.get(call=g.away).name
         home = Team.objects.get(call=g.home).name
-        return render_to_response('game.html', {'game':g, 'away':away, 'home':home}, context_instance=RequestContext(request))
+        return render_to_response('game.html', {'game':g, 'away':away, 'home':home},
+                                  context_instance=RequestContext(request))
     else:
         return render_to_response('game.html', {'game':None}, context_instance=RequestContext(request))
+
+@decorators.login_required
+def create_pick(request, gameno):
+    try:
+        g = Game.objects.get(id=gameno)
+    except Game.DoesNotExist:
+        g = None
+
+    if Pick.objects.filter(user=request.session.get('_auth_user_id'), game=gameno).exists():
+        messages.add_message(request, messages.INFO, 'You already have a pick for this game')
+        return HttpResponseRedirect('/mypicks')
+
+    if g:
+        away = Team.objects.get(call=g.away)
+        home = Team.objects.get(call=g.home)
+        if request.method == 'POST':
+            if not request.POST['pick']:
+                messages.add_message(request, messagees.INFO, 'You did not make a selection!')
+                return HttpResponseRedirect('/pick/%i' % gameno)
+            p = Pick(user=request.session.get('_auth_user_id'), game=gameno, week=g.week, pick=request.POST['pick'])
+            p.save()
+            messages.add_message(request, messages.INFO, 'Pick added!')
+            return HttpResponseRedirect('/mypicks')
+        else:
+            form = Form()
+
+    return render_to_response('pick.html', {'form':form, 'away':away, 'home':home, 'gameid':gameno},
+                              context_instance=RequestContext(request))
+
+@decorators.login_required
+def my_picks(request):
+    p = Pick.objects.filter(user=request.session.get('_auth_user_id'))
+    if p.exists():
+        return render_to_response('mypick.html', {'picks':p}, context_instance=RequestContext(request))
+    else:
+        return render_to_response('mypick.html', {'picks':None}, context_instance=RequestContext(request))
+

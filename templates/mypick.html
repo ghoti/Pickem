@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}My Picks!{% endblock %}
+{% block content %}
+    {% if picks %}
+    <ul>
+    {% for i in picks %}
+        <li>{{ forloop.counter }}: {{ i.week }} {{ i.pick }}</li>
+    {% endfor %}
+    </ul>
+    {% else %}
+    You do not have any picks
+    {% endif %}
+{% endblock %}

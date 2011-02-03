@@ -27,4 +27,6 @@ urlpatterns = patterns('',
     (r'^add_game/$', views.add_game),
     (r'^gamelist/$', views.gamelist),
     (r'^game/(\d+)/$', views.game),
+    (r'^pick/(\d+)/$', views.create_pick),
+    (r'mypicks/$', views.my_picks),
 )

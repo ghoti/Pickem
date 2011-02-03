@@ -8,6 +8,7 @@
         <td><a href="{% url Pickem.views.teamname home %}">{{ game.home }}</a></td></tr>
     <tr><td>{{ game.awayscore }}</td><td>(status)</td><td>{{ game.homescore }}</td></tr>
 </table>
+    <a href="{% url Pickem.views.create_pick game.id %}">Pick a winner</a>
 {% else %}
 No game with that id exists...
 {% endif %}
