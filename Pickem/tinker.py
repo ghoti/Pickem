@@ -1,5 +1,10 @@
 __author__ = 'ghoti'
-from models import Team
+#from models import Game
 
-t = Team.objects.all()
-print t
+import datetime
+
+#g = Game.objects.all()
+#for i in g:
+#    print i.deadline
+
+print datetime.datetime.

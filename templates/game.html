@@ -2,14 +2,37 @@
 {% block title %}All games{% endblock %}
 {% block content %}
 {% if game %}
-<table border="1" align="center">
+<table border="1">
     <tr><td><a href="{% url Pickem.views.teamname away %}">{{ game.away }}</a></td>
         <td>AT</td>
         <td><a href="{% url Pickem.views.teamname home %}">{{ game.home }}</a></td></tr>
-    <tr><td>{{ game.awayscore }}</td><td>(status)</td><td>{{ game.homescore }}</td></tr>
-</table>
-    <a href="{% url Pickem.views.create_pick game.id %}">Pick a winner</a>
+    <tr><td>{{ game.awayscore }}</td><td>{{ game.status }}</td><td>{{ game.homescore }}</td></tr>
+</table><br />
+    Deadline to pick for this game: {{ game.deadline }}<br>
+    {% if game.status == "Pending" %}
+    <a href="{% url Pickem.views.create_pick game.id %}">Pick a winner</a><br>
+    {% if user.is_staff %}
+    <a href="{% url Pickem.views.make_winner game.id %}">Decide Winner</a><br>
+    {% endif %}
+    {% endif %}
 {% else %}
 No game with that id exists...
+    <hr>
+{% endif %}
+{% if hpicks %}
+    The following people picked {{ game.home }} to win:<br />
+    {% for i in hpicks %}
+    <a href="{% url Pickem.views.profile i %}">{{ i }}</a><br />
+    {% endfor %}
+{% else %}
+    No one has picked {{ game.home }} to win yet...<br>
+{% endif %}
+{% if apicks %}
+    The Following people picked {{ game.away }} to win:<br />
+    {% for i in apicks %}
+    <a href="{% url Pickem.views.profile i %}">{{ i }}</a><br />
+    {% endfor %}
+{% else %}
+    No one has picked {{ game.away }} to win yet...<br>
 {% endif %}
 {% endblock %}

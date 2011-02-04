@@ -14,6 +14,8 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # (r'^admin/', include(admin.site.urls)),
+    (r'^static/(?P<path>.*)$', 'django.views.static.serve',{'document_root': './static/'}),
+
     (r'$^', views.index),
     (r'^live/$', views.live),
     (r'^allteams/$', views.allteams),
@@ -28,5 +30,7 @@ urlpatterns = patterns('',
     (r'^gamelist/$', views.gamelist),
     (r'^game/(\d+)/$', views.game),
     (r'^pick/(\d+)/$', views.create_pick),
-    (r'mypicks/$', views.my_picks),
+    (r'^mypicks/$', views.my_picks),
+    (r'^stats/$', views.stats),
+    (r'^make_winner/(\d+)/$', views.make_winner),
 )

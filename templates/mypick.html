@@ -4,7 +4,7 @@
     {% if picks %}
     <ul>
     {% for i in picks %}
-        <li>{{ forloop.counter }}: {{ i.week }} {{ i.pick }}</li>
+        <li>Pick #{{ forloop.counter }}: Week {{ i.0 }} Game: <a href="{% url Pickem.views.game i.1 %}">{{ i.1 }}</a> Pick: {{ i.2 }}</li>
     {% endfor %}
     </ul>
     {% else %}

@@ -1,0 +1,11 @@
+<!D{% extends "base.html" %}
+{% block title %}Stats!{% endblock %}
+{% block content %}
+<table border="1">
+    <tr><td>Username</td><td>Wins</td><td>Losses</td></tr>
+    {% for i in rank %}
+    <tr><td><a href="{% url Pickem.views.profile i.0.username %}">{{ i.0.username }}</a></td>
+        <td>{{ i.1 }}</td><td>{{ i.2 }}<td></tr>
+    {% endfor %}
+</table>
+{% endblock %}

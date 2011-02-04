@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>{% block title %}{% endblock %}</title>
+    {% block script %}{% endblock %}
 </head>
 <body>
 <h1>Pickem! A Quaig Production</h1>
@@ -14,6 +15,7 @@
         <a href="{% url django.contrib.auth.views.login %}">Login</a>
         <a href="{% url Pickem.views.register %}">Register</a>
     {% endif %}
+        <a href="{% url Pickem.views.stats %}">User Ranking</a>
         <a href="{% url Pickem.views.live %}">Live Scores</a>
         <a href="{% url Pickem.views.allteams %}">All Teams</a>
         <a href="{% url Pickem.views.gamelist %}">Game Listing</a><br />

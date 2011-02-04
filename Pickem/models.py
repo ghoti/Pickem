@@ -54,10 +54,13 @@ class Team(models.Model):
 
 class Game(models.Model):
     week = models.IntegerField()
+    winner = models.CharField(max_length=3, blank=True, null=True)
     away = models.CharField(max_length=3)
     home = models.CharField(max_length=3)
     homescore = models.IntegerField(blank=True, null=True)
     awayscore = models.IntegerField(blank=True, null=True)
+    status = models.CharField(max_length=10)
+    deadline = models.DateTimeField()
 
 class Pick(models.Model):
     user = models.IntegerField()
