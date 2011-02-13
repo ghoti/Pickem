@@ -3,33 +3,44 @@
 <head>
     <title>{% block title %}{% endblock %}</title>
     {% block script %}{% endblock %}
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/flash.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/static/quaig.css" />
 </head>
 <body>
-<h1>Pickem! A Quaig Production</h1>
-<a href="{% url Pickem.views.index %}">Home</a>
+<h1>Pickem!</h1>
+<div class="nav">
+<ul>
+<li><a href="{% url Pickem.views.index %}">Home</a></li>
     {% if user.is_authenticated %}
-        <a href="{% url django.contrib.auth.views.logout %}">Logout {{ user.username }}</a>
-        <a href="{% url Pickem.views.profile user.username %}">My Profile</a>
-        <a href="{% url Pickem.views.my_picks %}">My Picks</a>
+        <li><a href="{% url django.contrib.auth.views.logout %}">Logout {{ user.username }}</a></li>
+        <li><a href="{% url Pickem.views.profile user.username %}">My Profile</a></li>
+        <li><a href="{% url Pickem.views.my_picks %}">My Picks</a></li>
     {% else %}
-        <a href="{% url django.contrib.auth.views.login %}">Login</a>
-        <a href="{% url Pickem.views.register %}">Register</a>
+        <li><a href="{% url django.contrib.auth.views.login %}">Login</a></li>
+        <li><a href="{% url Pickem.views.register %}">Register</a></li>
     {% endif %}
-        <a href="{% url Pickem.views.stats %}">User Ranking</a>
-        <a href="{% url Pickem.views.live %}">Live Scores</a>
-        <a href="{% url Pickem.views.allteams %}">All Teams</a>
-        <a href="{% url Pickem.views.gamelist %}">Game Listing</a><br />
-    {% if user.is_staff %}
-        <a href="{% url Pickem.views.add_game %}">Add Game</a>
-    {% endif %}
-<p>
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-    {% endfor %}
+        <li><a href="{% url Pickem.views.stats %}">Rankings</a></li>
+        <li><a href="{% url Pickem.views.live %}">Live Scores</a></li>
+        <li><a href="{% url Pickem.views.allteams %}">All Teams</a></li>
+        <li><a href="{% url Pickem.views.gamelist %}">Game Listing</a></li>
+</ul>
+{% if user.is_staff %}
+<ul style=float:right;>
+    <li><a href="{% url Pickem.views.add_game %}">Add Game</a></li>
 </ul>
 {% endif %}
+</div>
+<hr width="50%">
+{% if messages %}
+    {% for message in messages %}
+        <!-- <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li> -->
+        <div class="flash"> {{ message }}</div>
+    {% endfor %}
+{% endif %}
 {% block content %}{% endblock %}
+<p>
+<div class="footer">A quaig production 2011</div>
 </body>
 </html>

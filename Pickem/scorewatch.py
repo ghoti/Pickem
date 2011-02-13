@@ -3,7 +3,8 @@ import re
 import urllib2
 
 gamestring = re.compile('\w{10}(\d)=(?P<team1>[A-Za-z\s]*)(?P<score1>\d{1,2}|\d{0})\s(?:@|at)\s(?P<team2>[A-Za-z\s]*)(?P<score2>\d{1,2}|\d{0})\s\((?P<info>.*)\)')
-gameurl = 'http://sports.espn.go.com/nfl/bottomline/scores'
+#using nhl for now, same line format, bonus for having games going on :D
+gameurl = 'http://sports.espn.go.com/nhl/bottomline/scores'
 
 def scores():
     scores = urllib2.urlopen(gameurl).read()

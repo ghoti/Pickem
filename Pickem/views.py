@@ -169,7 +169,7 @@ def make_winner(request, gameno):
             home.l += 1
         else:
             away.l += 1
-            home.l += 1
+            home.w += 1
 
         away.save()
         home.save()
