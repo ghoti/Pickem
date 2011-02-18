@@ -45,7 +45,7 @@ USE_L10N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = '/home/quaig/www/static/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
@@ -82,7 +82,8 @@ AUTH_PROFILE_MODULE = "pickem2.Profile"
 
 ROOT_URLCONF = 'pickem2.urls'
 
-TEMPLATE_DIRS = ('C:/Users/ghoti/workspace/pickem2/templates',)
+from os import path
+TEMPLATE_DIRS = (path.expanduser('~/Pickem/templates'),)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
